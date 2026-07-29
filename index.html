@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>KING_BLESS-MD | Mini BOT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #070810;
+      color: white;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse 80% 50% at 20% 40%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 60% at 80% 60%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+        #070810;
+      z-index: 0;
+    }
+
+    .glow-orb {
+      position: fixed;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.22;
+      z-index: 1;
+      animation: float 18s infinite ease-in-out;
+    }
+
+    .orb-1 {
+      top: -250px;
+      left: -150px;
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      bottom: -250px;
+      right: -150px;
+      background: linear-gradient(135deg, #f43f5e 0%, #a855f7 50%, #06b6d4 100%);
+      animation-delay: -9s;
+    }
+
+    .orb-3 {
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+      opacity: 0.1;
+      animation-delay: -4s;
+      animation-duration: 25s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(60px, -40px) scale(1.08);
+      }
+      66% {
+        transform: translate(-40px, 60px) scale(0.95);
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(12, 14, 22, 0.6);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 32px;
+      padding: 40px 30px;
+      box-shadow: 
+        0 30px 100px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(139, 92, 246, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.6s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        #f43f5e 15%, 
+        #ec4899 30%, 
+        #8b5cf6 50%, 
+        #3b82f6 70%, 
+        #06b6d4 85%, 
+        transparent 100%);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-container {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 20px;
+      position: relative;
+    }
+
+    .logo-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 3px solid transparent;
+      border-top-color: #ec4899;
+      border-right-color: #8b5cf6;
+      border-bottom-color: #3b82f6;
+      border-left-color: #06b6d4;
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .logo {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 40%, #3b82f6 70%, #06b6d4 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      color: white;
+      box-shadow: 
+        0 10px 40px rgba(236, 72, 153, 0.3),
+        0 0 60px rgba(139, 92, 246, 0.15),
+        0 0 100px rgba(6, 182, 212, 0.08);
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #f43f5e 0%, #ec4899 25%, #8b5cf6 50%, #3b82f6 75%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 400;
+    }
+
+    .server-info {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .server-info:hover {
+      background: rgba(139, 92, 246, 0.08);
+      border-color: rgba(139, 92, 246, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1);
+    }
+
+    .server-info-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .server-info-left i {
+      color: #8b5cf6;
+      font-size: 20px;
+    }
+
+    .server-details {
+      flex: 1;
+    }
+
+    .server-name {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .server-stats {
+      display: flex;
+      gap: 15px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .server-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .server-stat i {
+      font-size: 10px;
+    }
+
+    .change-server-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .change-server-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(139, 92, 246, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .server-selection {
+      display: none;
+      background: rgba(8, 10, 18, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .server-selection.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .server-selection-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+    }
+
+    .server-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .server-option {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .server-option:hover {
+      background: rgba(139, 92, 246, 0.05);
+      border-color: rgba(139, 92, 246, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .server-option.selected {
+      background: rgba(139, 92, 246, 0.08);
+      border-color: #8b5cf6;
+    }
+
+    .server-option.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .server-option-name {
+      font-weight: 500;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .server-option-stats {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .info-box {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .info-box i {
+      color: #8b5cf6;
+      font-size: 20px;
+      margin-top: 2px;
+    }
+
+    .info-box-text {
+      flex: 1;
+    }
+
+    .info-box-text strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .info-box-text p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 18px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 16px 20px 16px 55px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      color: white;
+      font-size: 15px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: #8b5cf6;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.06);
+    }
+
+    .input:focus + .input-icon {
+      color: #8b5cf6;
+    }
+
+    .input::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hint i {
+      font-size: 11px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-generate {
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 35%, #3b82f6 70%, #06b6d4 100%);
+      color: white;
+      box-shadow: 
+        0 10px 30px rgba(139, 92, 246, 0.25),
+        0 0 20px rgba(236, 72, 153, 0.1);
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-generate::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-generate:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .btn-generate:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 15px 40px rgba(139, 92, 246, 0.35),
+        0 0 30px rgba(236, 72, 153, 0.15);
+    }
+
+    .btn-generate:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .btn-generate:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: none;
+    }
+
+    .btn-copy:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .spinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid rgba(139, 92, 246, 0.1);
+      border-radius: 50%;
+      border-top-color: #ec4899;
+      border-right-color: #8b5cf6;
+      border-bottom-color: #3b82f6;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    .loading-text {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    .code-box {
+      background: rgba(0, 0, 0, 0.25);
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .code-box.has-code {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: rgba(139, 92, 246, 0.03);
+    }
+
+    .code-box.has-error {
+      border-color: rgba(244, 63, 94, 0.4);
+      background: rgba(244, 63, 94, 0.03);
+    }
+
+    .code-placeholder {
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 14px;
+    }
+
+    .code-value {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #ec4899;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .code-value i {
+      font-size: 22px;
+      color: #8b5cf6;
+    }
+
+    .error-value {
+      color: #f43f5e;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(150px);
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-weight: 500;
+      box-shadow: 0 10px 40px rgba(139, 92, 246, 0.35);
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      box-shadow: 0 10px 40px rgba(244, 63, 94, 0.35);
+    }
+
+    /* Cooldown Timer Styles */
+    .cooldown-timer {
+      display: none;
+      text-align: center;
+      margin: 15px 0;
+      padding: 12px;
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 12px;
+    }
+
+    .cooldown-timer.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .cooldown-timer-text {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cooldown-timer-text i {
+      color: #f59e0b;
+    }
+
+    .cooldown-timer-seconds {
+      font-weight: 700;
+      color: #f59e0b;
+      font-size: 16px;
+    }
+
+    .btn-generate.cooldown {
+      background: linear-gradient(135deg, #be185d 0%, #7c3aed 35%, #1d4ed8 70%, #0891b2 100%);
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 580px) {
+      .card {
+        padding: 35px 20px;
+        border-radius: 25px;
+      }
+
+      .title {
+        font-size: 26px;
+      }
+
+      .logo-container {
+        width: 80px;
+        height: 80px;
+      }
+
+      .logo {
+        font-size: 34px;
+      }
+
+      .code-value {
+        font-size: 22px;
+      }
+
+      .server-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+  <div class="bg-gradient"></div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div class="logo-container">
+          <div class="logo-ring"></div>
+          <div class="logo">
+            <i class="fas fa-bolt"></i>
+          </div>
+        </div>
+        <h1 class="title">KING_BLESS-MD</h1>
+        <p class="subtitle">Generate Your Pairing Code</p>
+      </div>
+
+      <!-- Server Info Section -->
+      <div class="server-info" id="serverInfo">
+        <div class="server-info-left">
+          <i class="fas fa-server"></i>
+          <div class="server-details">
+            <span class="server-name" id="currentServerName">Select Server</span>
+            <div class="server-stats">
+              <span class="server-stat" id="activeCount">
+                <i class="fas fa-circle" style="color: #8b5cf6;"></i>
+                Active: --
+              </span>
+              <span class="server-stat" id="serverLimit">
+                <i class="fas fa-users"></i>
+                Limit: --/50
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="change-server-btn">
+          <i class="fas fa-chevron-down"></i>
+          Select
+        </div>
+      </div>
+
+      <!-- Server Selection Section -->
+      <div class="server-selection" id="serverSelection">
+        <div class="server-selection-title">Select a Server (1-60)</div>
+        <div class="server-grid" id="serverGrid">
+          <!-- Server options will be populated here -->
+        </div>
+      </div>
+
+      <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <div class="info-box-text">
+          <strong>Quick Setup</strong>
+          <p>Select a server, enter your WhatsApp number to instantly generate a pairing code. No deployment needed!</p>
+        </div>
+      </div>
+
+      <form id="pairForm">
+        <div class="form-group">
+          <label class="label">WhatsApp Number</label>
+          <div class="input-wrapper">
+            <input 
+              type="tel" 
+              id="phoneNumber" 
+              class="input" 
+              placeholder="92342758xxxxx"
+              pattern="[0-9]+"
+              required
+            >
+            <i class="fas fa-phone input-icon"></i>
+          </div>
+          <div class="hint">
+            <i class="fas fa-lightbulb"></i>
+            Include country code (e.g., 92 for Pakistan)
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-generate" id="generateBtn" disabled>
+          <i class="fas fa-key"></i>
+          Generate Pair Code
+        </button>
+
+        <!-- Cooldown Timer Display -->
+        <div class="cooldown-timer" id="cooldownTimer">
+          <div class="cooldown-timer-text">
+            <i class="fas fa-clock"></i>
+            <span>Please wait <span class="cooldown-timer-seconds" id="cooldownSeconds">30</span> seconds before generating again</span>
+          </div>
+        </div>
+
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          <p class="loading-text">Generating your pair code...</p>
+        </div>
+
+        <div class="code-box" id="codeBox">
+          <div class="code-placeholder">Your pairing code will appear here</div>
+        </div>
+
+        <button type="button" class="btn btn-copy" id="copyBtn">
+          <i class="fas fa-copy"></i>
+          Copy Code
+        </button>
+      </form>
+
+      <div class="footer">
+        <p class="footer-text">
+          &copy; 2026 KING_BLESS-MD | Powered By KING_BLESS-MD 
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span>Code copied successfully</span>
+  </div>
+
+  <script>
+    // ============================================
+    // NO API VISIBLE - Everything is hidden!
+    // ============================================
+
+    // DOM Elements
+    const phoneInput = document.getElementById('phoneNumber');
+    const generateBtn = document.getElementById('generateBtn');
+    const loading = document.getElementById('loading');
+    const codeBox = document.getElementById('codeBox');
+    const copyBtn = document.getElementById('copyBtn');
+    const toast = document.getElementById('toast');
+    const form = document.getElementById('pairForm');
+    const serverInfo = document.getElementById('serverInfo');
+    const serverSelection = document.getElementById('serverSelection');
+    const serverGrid = document.getElementById('serverGrid');
+    const currentServerName = document.getElementById('currentServerName');
+    const activeCount = document.getElementById('activeCount');
+    const serverLimit = document.getElementById('serverLimit');
+    const cooldownTimer = document.getElementById('cooldownTimer');
+    const cooldownSeconds = document.getElementById('cooldownSeconds');
+
+    let currentCode = null;
+    let selectedServer = null;
+    let cooldownInterval = null;
+    let isCooldown = false;
+    let displayServers = [];
+
+    // 60 SERVERS HARDCODED
+    const allServers = [
+      { id: 'server1', name: 'Server 1' }, { id: 'server2', name: 'Server 2' },
+      { id: 'server3', name: 'Server 3' }, { id: 'server4', name: 'Server 4' },
+      { id: 'server5', name: 'Server 5' }, { id: 'server6', name: 'Server 6' },
+      { id: 'server7', name: 'Server 7' }, { id: 'server8', name: 'Server 8' },
+      { id: 'server9', name: 'Server 9' }, { id: 'server10', name: 'Server 10' },
+      { id: 'server11', name: 'Server 11' }, { id: 'server12', name: 'Server 12' },
+      { id: 'server13', name: 'Server 13' }, { id: 'server14', name: 'Server 14' },
+      { id: 'server15', name: 'Server 15' }, { id: 'server16', name: 'Server 16' },
+      { id: 'server17', name: 'Server 17' }, { id: 'server18', name: 'Server 18' },
+      { id: 'server19', name: 'Server 19' }, { id: 'server20', name: 'Server 20' },
+      { id: 'server21', name: 'Server 21' }, { id: 'server22', name: 'Server 22' },
+      { id: 'server23', name: 'Server 23' }, { id: 'server24', name: 'Server 24' },
+      { id: 'server25', name: 'Server 25' }, { id: 'server26', name: 'Server 26' },
+      { id: 'server27', name: 'Server 27' }, { id: 'server28', name: 'Server 28' },
+      { id: 'server29', name: 'Server 29' }, { id: 'server30', name: 'Server 30' },
+      { id: 'server31', name: 'Server 31' }, { id: 'server32', name: 'Server 32' },
+      { id: 'server33', name: 'Server 33' }, { id: 'server34', name: 'Server 34' },
+      { id: 'server35', name: 'Server 35' }, { id: 'server36', name: 'Server 36' },
+      { id: 'server37', name: 'Server 37' }, { id: 'server38', name: 'Server 38' },
+      { id: 'server39', name: 'Server 39' }, { id: 'server40', name: 'Server 40' },
+      { id: 'server41', name: 'Server 41' }, { id: 'server42', name: 'Server 42' },
+      { id: 'server43', name: 'Server 43' }, { id: 'server44', name: 'Server 44' },
+      { id: 'server45', name: 'Server 45' }, { id: 'server46', name: 'Server 46' },
+      { id: 'server47', name: 'Server 47' }, { id: 'server48', name: 'Server 48' },
+      { id: 'server49', name: 'Server 49' }, { id: 'server50', name: 'Server 50' },
+      { id: 'server51', name: 'Server 51' }, { id: 'server52', name: 'Server 52' },
+      { id: 'server53', name: 'Server 53' }, { id: 'server54', name: 'Server 54' },
+      { id: 'server55', name: 'Server 55' }, { id: 'server56', name: 'Server 56' },
+      { id: 'server57', name: 'Server 57' }, { id: 'server58', name: 'Server 58' },
+      { id: 'server59', name: 'Server 59' }, { id: 'server60', name: 'Server 60' }
+    ];
+
+    // Randomize server order: pick random start, then sequential with wrap-around
+    function shuffleServerOrder() {
+      const randomIndex = Math.floor(Math.random() * allServers.length);
+      displayServers = [
+        ...allServers.slice(randomIndex),
+        ...allServers.slice(0, randomIndex)
+      ];
+    }
+
+    // Hidden function - NO API visible!
+    async function _secretRequest(action, data) {
+      const response = await fetch('/x', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ a: action, b: data })
+      });
+
+      if (!response.ok) {
+        throw new Error('Network error');
+      }
+
+      const result = await response.json();
+
+      if (result.e) {
+        throw new Error(result.e);
+      }
+
+      return result;
+    }
+
+    // Hidden function to check server status
+    async function _checkServerStatus(serverId) {
+      try {
+        const result = await _secretRequest('status', serverId);
+        return result;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    // Hidden function to generate code
+    async function _generateCode(serverId, number) {
+      try {
+        const result = await _secretRequest('gen', { server: serverId, number: number });
+        return result.c;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    // Toast notification
+    function showToast(message, isError = false) {
+      const toastIcon = toast.querySelector('i');
+      const toastText = toast.querySelector('span');
+
+      toastIcon.className = isError ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
+      toastText.textContent = message;
+      toast.className = `toast ${isError ? 'error' : ''} show`;
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Cooldown Timer Functions
+    function startCooldown() {
+      isCooldown = true;
+      let seconds = 30;
+
+      generateBtn.disabled = true;
+      generateBtn.classList.add('cooldown');
+      generateBtn.innerHTML = `<i class="fas fa-clock"></i> Wait ${seconds}s`;
+      cooldownTimer.classList.add('show');
+      cooldownSeconds.textContent = seconds;
+
+      cooldownInterval = setInterval(() => {
+        seconds--;
+        cooldownSeconds.textContent = seconds;
+        generateBtn.innerHTML = `<i class="fas fa-clock"></i> Wait ${seconds}s`;
+
+        if (seconds <= 0) {
+          clearInterval(cooldownInterval);
+          endCooldown();
+        }
+      }, 1000);
+    }
+
+    function endCooldown() {
+      isCooldown = false;
+      clearInterval(cooldownInterval);
+      cooldownTimer.classList.remove('show');
+      generateBtn.classList.remove('cooldown');
+      generateBtn.innerHTML = '<i class="fas fa-key"></i> Generate Pair Code';
+
+      // Only enable if server is selected and not full/offline
+      if (selectedServer) {
+        generateBtn.disabled = false;
+      }
+    }
+
+    // Initialize the app
+    function initApp() {
+      shuffleServerOrder();
+      populateServerGrid(displayServers);
+      serverInfo.addEventListener('click', showServerSelection);
+    }
+
+    // Populate server grid
+    function populateServerGrid(servers) {
+      serverGrid.innerHTML = '';
+
+      servers.forEach(server => {
+        const isSelected = selectedServer === server.id;
+
+        const serverOption = document.createElement('div');
+        serverOption.className = `server-option ${isSelected ? 'selected' : ''}`;
+        serverOption.dataset.server = server.id;
+
+        serverOption.innerHTML = `
+          <div class="server-option-name">
+            ${server.name}
+          </div>
+          <div class="server-option-stats">
+            <span>Click to select</span>
+          </div>
+        `;
+
+        serverOption.addEventListener('click', () => selectServer(server.id, serverOption));
+        serverGrid.appendChild(serverOption);
+      });
+    }
+
+    // Select a server and check its status - FAST response
+    async function selectServer(serverId, clickedElement) {
+      selectedServer = serverId;
+
+      // FAST: Immediately highlight the clicked server and show checking state
+      if (clickedElement) {
+        document.querySelectorAll('.server-option').forEach(el => el.classList.remove('selected'));
+        clickedElement.classList.add('selected');
+        clickedElement.classList.add('loading');
+      }
+
+      const serverNum = serverId.replace('server', '');
+      currentServerName.textContent = `Server ${serverNum}`;
+      activeCount.innerHTML = `<i class="fas fa-circle" style="color:#8b5cf6;"></i> Checking...`;
+      serverLimit.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Loading`;
+      generateBtn.disabled = true;
+
+      // Hide server selection immediately for fast feel
+      hideServerSelection();
+
+      await updateServerStatus(serverId);
+
+      // Remove loading state from grid
+      if (clickedElement) {
+        clickedElement.classList.remove('loading');
+      }
+    }
+
+    // Update server status using hidden function
+    async function updateServerStatus(serverId) {
+      try {
+        const status = await _checkServerStatus(serverId);
+        const serverNum = serverId.replace('server', '');
+        currentServerName.textContent = `Server ${serverNum}`;
+
+        if (status.error) {
+          activeCount.innerHTML = `<i class="fas fa-circle" style="color:#f43f5e;"></i> Status: OFFLINE`;
+          serverLimit.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Server Down`;
+          generateBtn.disabled = true;
+          showErrorInCode(`Server ${serverNum} is offline. Please select another server.`);
+          showToast(`Server ${serverNum} is offline`, true);
+        } else {
+          const count = status.count || 0;
+          const limit = status.limit || 50;
+
+          if (count >= limit) {
+            activeCount.innerHTML = `<i class="fas fa-circle" style="color:#f59e0b;"></i> Status: FULL`;
+            serverLimit.innerHTML = `<i class="fas fa-users"></i> ${count}/${limit}`;
+            generateBtn.disabled = true;
+            showErrorInCode(`Server ${serverNum} is full! Please select another server.`);
+            showToast(`Server ${serverNum} is full`, true);
+          } else {
+            activeCount.innerHTML = `<i class="fas fa-circle" style="color:#8b5cf6;"></i> Active: ${count}`;
+            serverLimit.innerHTML = `<i class="fas fa-users"></i> Limit: ${count}/${limit}`;
+            // Only enable if not in cooldown
+            if (!isCooldown) {
+              generateBtn.disabled = false;
+            }
+            if (codeBox.classList.contains('has-error')) {
+              resetCodeBox();
+            }
+            showToast(`Server ${serverNum} is ready!`, false);
+          }
+        }
+
+        populateServerGrid(displayServers);
+
+      } catch (error) {
+        const serverNum = serverId.replace('server', '');
+        currentServerName.textContent = `Server ${serverNum}`;
+        activeCount.innerHTML = `<i class="fas fa-circle" style="color:#f43f5e;"></i> Status: OFFLINE`;
+        serverLimit.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Server Down`;
+        generateBtn.disabled = true;
+        showErrorInCode(`Server ${serverNum} is not responding. Please select another server.`);
+        showToast(`Server ${serverNum} is offline`, true);
+        populateServerGrid(displayServers);
+      }
+    }
+
+    // Show error in code box
+    function showErrorInCode(message) {
+      codeBox.className = 'code-box has-error';
+      codeBox.innerHTML = `
+        <div class="error-value">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      copyBtn.style.display = 'none';
+      currentCode = null;
+    }
+
+    // Show generated code
+    function showCode(code) {
+      currentCode = code;
+      codeBox.className = 'code-box has-code';
+      codeBox.innerHTML = `
+        <div class="code-value">
+          <i class="fas fa-check-circle"></i>
+          <span>${code}</span>
+        </div>
+      `;
+      copyBtn.style.display = 'flex';
+    }
+
+    // Reset code box
+    function resetCodeBox() {
+      codeBox.className = 'code-box';
+      codeBox.innerHTML = '<div class="code-placeholder">Your pairing code will appear here</div>';
+      copyBtn.style.display = 'none';
+      currentCode = null;
+    }
+
+    // Show server selection
+    function showServerSelection() {
+      // Reshuffle every time server selection is opened for random first server
+      shuffleServerOrder();
+      serverInfo.style.display = 'none';
+      serverSelection.style.display = 'block';
+      serverSelection.classList.add('show');
+      populateServerGrid(displayServers);
+    }
+
+    // Hide server selection
+    function hideServerSelection() {
+      serverInfo.style.display = 'flex';
+      serverSelection.style.display = 'none';
+      serverSelection.classList.remove('show');
+    }
+
+    // Phone validation
+    function validatePhone(number) {
+      const cleaned = number.replace(/[^\d]/g, '');
+      return cleaned.length >= 10 && cleaned.length <= 15;
+    }
+
+    // Generate pair code using hidden function
+    async function generatePairCode(e) {
+      e.preventDefault();
+
+      if (isCooldown) {
+        showToast(`Please wait ${cooldownSeconds.textContent} seconds`, true);
+        return;
+      }
+
+      if (!selectedServer) {
+        showErrorInCode('Please select a server first');
+        showToast('Please select a server first', true);
+        showServerSelection();
+        return;
+      }
+
+      const phoneNumber = phoneInput.value.trim();
+
+      if (!phoneNumber) {
+        showErrorInCode('Please enter your WhatsApp number');
+        showToast('Phone number is required', true);
+        return;
+      }
+
+      if (!validatePhone(phoneNumber)) {
+        showErrorInCode('Please enter a valid phone number (10-15 digits)');
+        showToast('Invalid phone number format', true);
+        return;
+      }
+
+      generateBtn.style.display = 'none';
+      loading.style.display = 'block';
+      resetCodeBox();
+
+      try {
+        const code = await _generateCode(selectedServer, phoneNumber.replace(/[^\d]/g, ''));
+
+        if (code) {
+          showCode(code);
+          showToast('Pair code generated successfully!');
+          await updateServerStatus(selectedServer);
+          // Start 30 second cooldown
+          startCooldown();
+        } else {
+          throw new Error('Failed to generate code');
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        let errorMsg = error.message || 'Failed to generate code';
+        showErrorInCode(errorMsg);
+        showToast(errorMsg, true);
+        await updateServerStatus(selectedServer);
+
+      } finally {
+        generateBtn.style.display = 'flex';
+        loading.style.display = 'none';
+      }
+    }
+
+    // Copy code
+    async function copyCode() {
+      if (!currentCode) return;
+
+      try {
+        await navigator.clipboard.writeText(currentCode);
+
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.disabled = true;
+        copyBtn.style.opacity = '0.7';
+
+        showToast('Code copied to clipboard!');
+
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHTML;
+          copyBtn.disabled = false;
+          copyBtn.style.opacity = '1';
+        }, 2000);
+
+      } catch (error) {
+        showToast('Failed to copy code', true);
+      }
+    }
+
+    // Event Listeners
+    form.addEventListener('submit', generatePairCode);
+    copyBtn.addEventListener('click', copyCode);
+
+    phoneInput.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/[^\d]/g, '');
+    });
+
+    phoneInput.addEventListener('focus', () => {
+      if (codeBox.classList.contains('has-error')) {
+        resetCodeBox();
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
